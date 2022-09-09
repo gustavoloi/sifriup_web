@@ -1,0 +1,20 @@
+<ion-content fullscreen>
+  <ion-searchbar animated (ionChange)="search()" [(ngModel)]="searchValue" placeholder="Pesquisar usuário"></ion-searchbar>
+  <ion-list>
+    <ion-list-header> Listagem de usuários </ion-list-header>
+    <ion-item *ngFor="let usuario of usuarios | async" (click)="selectSetor(usuario.id)">
+      <ion-label>
+        <h2>{{usuario.id}}</h2>
+        <h2>{{usuario.nome}}</h2>
+        <h3>{{usuario.setorNome}}</h3>
+        <p>{{usuario.perfil}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="adicionar()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

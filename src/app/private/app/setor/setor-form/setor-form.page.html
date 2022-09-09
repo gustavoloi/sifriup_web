@@ -1,0 +1,43 @@
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Dados do usuário</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form #form="ngForm">
+        <input type="hidden" [(ngModel)]="setorForm.id" name="id" id="id" />
+        <ion-router-link routerLink="/app/setor" color="primary" href="javascript:void(0)">Voltar para listagem</ion-router-link>
+        <ion-item>
+          <ion-label position="floating">Nome</ion-label>
+          <ion-input required id="nome" name="nome" #nome="ngModel" [(ngModel)]="setorForm.nome"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating"> Taxa de qualidade</ion-label>
+          <ion-input
+            required
+            type="tel"
+            minlength="2"
+            maxlength="3"
+            min="10"
+            max="100"
+            id="taxaDeQualidade"
+            name="taxaDeQualidade"
+            #nome="ngModel"
+            [(ngModel)]="setorForm.taxaDeQualidade"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tam. Original</ion-label>
+          <ion-toggle id="isOriginal" name="isOriginal" #isOriginal="ngModel" [(ngModel)]="setorForm.isOriginal"></ion-toggle>
+        </ion-item>
+
+        <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
+          <div *ngIf="nome.errors.required">Digite o nome</div>
+        </div>
+        <ion-button [disabled]="form.invalid" (click)="submit(form)" expand="block">Salvar</ion-button>
+        <ion-button color="secondary" *ngIf="setorForm.id" (click)="delete(form)" expand="block">Deletar</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

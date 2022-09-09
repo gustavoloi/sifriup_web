@@ -1,0 +1,35 @@
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      <h5>Fotos enviadas</h5>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Setor</ion-label>
+      <ion-select [(ngModel)]="setorId" name="setorId" id="setorId" (ionChange)="filtrarSetor()" placeholder="Selecione um setor">
+        <ion-select-option *ngFor="let setor of setores | async" [value]="setor.id">{{setor.nome}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Data</ion-label>
+      <ion-datetime
+        displayFormat="DD/MM/YYYY"
+        pickerFormat="DD MMMM YYYY"
+        monthNames="Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"
+        doneText="Ok"
+        cancelText="Cancelar"
+        (ionChange)="filtrarSetor()"
+        [(ngModel)]="selectDate"
+        min="{{currentDateMin}}"
+        max="{{currentDate}}"
+        placeholder="Filtrar por data"
+      ></ion-datetime>
+    </ion-item>
+  </ion-list>
+
+  <ion-row>
+    <ion-col *ngFor="let foto of fotos | async" size="3">
+      <ion-img [src]="getFoto(foto.id) | authImg | async"></ion-img>
+    </ion-col>
+  </ion-row>
+</ion-content>

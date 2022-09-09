@@ -1,0 +1,111 @@
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Dados do usuário</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <input type="hidden" name="id" id="id" [(ngModel)]="usuarioForm.id">
+      <form #form="ngForm">
+      <ion-router-link routerLink="/app/usuario" color="primary" href="javascript:void(0)">Voltar para listagem</ion-router-link>
+      <ion-item>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input #nome="ngModel" required id="nome" name="nome" [(ngModel)]="usuarioForm.nome"></ion-input>
+      </ion-item>
+
+      <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
+        <div *ngIf="nome.errors.required">
+          Digite o nome
+        </div>
+      </div>
+    
+      <ion-item>
+        <ion-label  position="floating">Login</ion-label>
+        <ion-input #login="ngModel" required id="login" name="login" [(ngModel)]="usuarioForm.login" ></ion-input>
+      </ion-item>
+
+      <div *ngIf="login.invalid && (login.dirty || login.touched)" class="alert alert-danger">
+        <div *ngIf="login.errors.required">
+          Digite o login
+        </div>
+      </div>
+    
+ 
+      <ion-item>
+        <ion-label  position="floating">Senha</ion-label>
+        <ion-input type="password" #senha="ngModel" id="senha" name="senha" required [(ngModel)]="usuarioForm.senha"></ion-input>
+      </ion-item>
+
+      <div *ngIf="senha.invalid && (senha.dirty || senha.touched)" class="alert alert-danger">
+        <div *ngIf="senha.errors.required">
+          Digite o senha
+        </div>
+      </div>
+    <div *ngIf="!usuarioForm.id">
+      <ion-item>
+        <ion-label position="floating">Confirmar senha</ion-label>
+        <ion-input type="password" #confirmarSenha="ngModel" id="confirmarSenha" name="confirmarSenha" required [(ngModel)]="usuarioForm.confirmarSenha"></ion-input>
+      </ion-item>
+
+      <div *ngIf="confirmarSenha.invalid && (confirmarSenha.dirty || confirmarSenha.touched)" class="alert alert-danger">
+        <div *ngIf="confirmarSenha.errors.required">
+          Digite o confirmar senha
+        </div>
+         </div>
+
+      <div *ngIf="(confirmarSenha.dirty || confirmarSenha.touched && senha.dirty || senha.touched) && passwordNotEquals()" class="alert alert-danger">
+      <div *ngIf="passwordNotEquals()">
+          As senha devem ser iguais
+        </div>
+      </div>
+    
+    </div>
+      <ion-item>
+        <ion-label>Ativo</ion-label>
+        <ion-toggle id="ativo" name="ativo" #ativo="ngModel" [(ngModel)]="usuarioForm.ativo"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Setor</ion-label>
+        <ion-select #setorId="ngModel" okText="Ok" cancelText="Cancelar" [(ngModel)]="usuarioForm.setorId" id="setorId" name="setorId" required>
+          <ion-select-option *ngFor="let setor of setores" [value]="setor.id">{{setor.nome}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <div *ngIf="setorId.invalid && (setorId.dirty || setorId.touched)" class="alert alert-danger">
+        <div *ngIf="setorId.errors.required">
+          selecione o setor
+        </div>
+      </div>
+    
+
+      <ion-item>
+        <ion-label>Perfil</ion-label>
+        <ion-select #perfil="ngModel" okText="Ok" cancelText="Cancelar" [(ngModel)]="usuarioForm.perfil" id="perfil" name="perfil" required>
+          <ion-select-option value="USUARIO">USUARIO</ion-select-option>
+          <ion-select-option value="ADMIN">ADMINISTRADOR</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <div *ngIf="perfil.invalid && (perfil.dirty || perfil.touched)" class="alert alert-danger">
+        <div *ngIf="perfil.errors.required">
+          Selecione o perfil
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Diretório padrão</ion-label>
+        <ion-input #nome="ngModel" required id="nomeDir" name="nomeDir" [(ngModel)]="usuarioForm.nomeDir"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input #nome="ngModel" required id="email" name="email" [(ngModel)]="usuarioForm.email"></ion-input>
+      </ion-item>
+      
+      <ion-button [disabled]="!form.valid" (click)="submit(form)" expand="block">Salvar</ion-button>
+      <ion-button color="secondary" *ngIf="usuarioForm.id" (click)="delete(form)" expand="block">Deletar</ion-button>
+    </form>
+    </ion-card-content>
+  </ion-card>  
+</ion-content>
